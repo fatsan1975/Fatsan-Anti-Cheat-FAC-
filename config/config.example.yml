@@ -1,0 +1,100 @@
+alerts:
+  enabled: true
+
+evidence:
+  max-window: 96
+
+checks:
+  movement-cadence:
+    buffer-limit: 10
+  speed-envelope:
+    buffer-limit: 7
+  vertical-motion-envelope:
+    buffer-limit: 7
+  air-strafe-acceleration:
+    buffer-limit: 7
+  vertical-direction-flip:
+    buffer-limit: 7
+  micro-teleport:
+    buffer-limit: 7
+  ground-spoof-pattern:
+    buffer-limit: 7
+  air-hover-streak:
+    buffer-limit: 7
+  combat-rotation-snap:
+    buffer-limit: 8
+  rotation-quantization:
+    buffer-limit: 8
+  rotation-jitter-pattern:
+    buffer-limit: 7
+  pitch-lock:
+    buffer-limit: 7
+  impossible-critical:
+    buffer-limit: 7
+  critical-cadence-abuse:
+    buffer-limit: 7
+  hit-interval-burst:
+    buffer-limit: 7
+  reach:
+    buffer-limit: 7
+  reach-spike-cluster:
+    buffer-limit: 7
+  reach-variance-collapse:
+    buffer-limit: 7
+  auto-clicker:
+    buffer-limit: 7
+  timer:
+    buffer-limit: 12
+  nofall:
+    buffer-limit: 7
+  teleport-order:
+    buffer-limit: 7
+  impossible-ground:
+    buffer-limit: 7
+  keepalive-consistency:
+    buffer-limit: 7
+  keepalive-drift:
+    buffer-limit: 7
+  scaffold:
+    buffer-limit: 8
+  block-place-interval-consistency:
+    buffer-limit: 7
+  fast-break:
+    buffer-limit: 8
+  fast-break-cadence-cluster:
+    buffer-limit: 7
+  inventory-move:
+    buffer-limit: 8
+  inventory-burst-while-moving:
+    buffer-limit: 7
+  ping-spoof:
+    buffer-limit: 6
+  ping-oscillation-spoof:
+    buffer-limit: 7
+  packet-burst:
+    buffer-limit: 6
+
+actions:
+  mode: SETBACK
+  risk-thresholds:
+    alert: 2.0
+    setback: 4.5
+    kick: 8.5
+
+performance:
+  profile: lightweight
+  max-events-per-second: 450
+  keepalive-sample-interval-ms: 200
+
+ml:
+  enabled: true
+
+corroboration:
+  enabled: true
+  window-ms: 5000
+  min-distinct-categories: 2
+  min-events: 3
+
+security:
+  world-seed-guard:
+    enabled: true

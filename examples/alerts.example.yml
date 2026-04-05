@@ -1,0 +1,4 @@
+alerts:
+  format: "&c[FAC] {player} failed {check} ({reason}) severity={severity}"
+  cooldown-ms: 1200
+  repeat-suppression: true

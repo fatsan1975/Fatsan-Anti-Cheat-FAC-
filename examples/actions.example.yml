@@ -1,0 +1,7 @@
+actions:
+  movement-cadence:
+    mode: alert_only
+  combat-rotation-snap:
+    mode: alert_only
+  bad-packet-nan:
+    mode: cancel_and_alert
