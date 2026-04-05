@@ -1,0 +1,219 @@
+alerts:
+  enabled: true
+
+evidence:
+  max-window: 80
+
+checks:
+  movement-cadence:
+    buffer-limit: 8
+  speed-envelope:
+    buffer-limit: 6
+  vertical-motion-envelope:
+    buffer-limit: 6
+  air-strafe-acceleration:
+    buffer-limit: 6
+  vertical-direction-flip:
+    buffer-limit: 6
+  micro-teleport:
+    buffer-limit: 6
+  ground-spoof-pattern:
+    buffer-limit: 6
+  air-hover-streak:
+    buffer-limit: 6
+  combat-rotation-snap:
+    buffer-limit: 6
+  rotation-quantization:
+    buffer-limit: 7
+  rotation-jitter-pattern:
+    buffer-limit: 6
+  pitch-lock:
+    buffer-limit: 6
+  impossible-critical:
+    buffer-limit: 6
+  critical-cadence-abuse:
+    buffer-limit: 6
+  hit-interval-burst:
+    buffer-limit: 6
+  reach:
+    buffer-limit: 6
+  reach-spike-cluster:
+    buffer-limit: 6
+  reach-variance-collapse:
+    buffer-limit: 6
+  auto-clicker:
+    buffer-limit: 6
+  timer:
+    buffer-limit: 10
+  nofall:
+    buffer-limit: 6
+  teleport-order:
+    buffer-limit: 6
+  impossible-ground:
+    buffer-limit: 6
+  keepalive-consistency:
+    buffer-limit: 6
+  keepalive-drift:
+    buffer-limit: 6
+  scaffold:
+    buffer-limit: 7
+  block-place-interval-consistency:
+    buffer-limit: 6
+  fast-break:
+    buffer-limit: 7
+  fast-break-cadence-cluster:
+    buffer-limit: 6
+  inventory-move:
+    buffer-limit: 7
+  inventory-burst-while-moving:
+    buffer-limit: 6
+  ping-spoof:
+    buffer-limit: 5
+  ping-oscillation-spoof:
+    buffer-limit: 6
+  packet-burst:
+    buffer-limit: 5
+  disabled: []
+
+  # ── Per-check configuration ──────────────────────────────────────────────────
+  # Override any check's defaults. Check names are case-sensitive (PascalCase).
+  # Example:
+  #   check-settings:
+  #     SpeedEnvelope:
+  #       enabled: true
+  #       threshold: 11.5
+  check-settings: {}
+
+# ── Custom attribute whitelist ───────────────────────────────────────────────
+# Register custom plugin attributes so FAC doesn't flag them as suspicious.
+# Unknown attributes trigger conservative mode (wider thresholds, not false positives).
+custom-attributes:
+  speed-whitelist:
+    - "generic.movement_speed"
+    - "generic.flying_speed"
+    - "generic.step_height"
+    - "generic.safe_fall_distance"
+    - "generic.fall_damage_multiplier"
+    - "generic.jump_strength"
+    - "generic.gravity"
+  attack-whitelist:
+    - "generic.attack_speed"
+    - "generic.attack_damage"
+    - "generic.attack_knockback"
+    - "player.entity_interaction_range"
+    - "player.block_interaction_range"
+    - "generic.knockback_resistance"
+  ignored-items:
+    - "COMMAND_BLOCK"
+    - "CHAIN_COMMAND_BLOCK"
+    - "REPEATING_COMMAND_BLOCK"
+    - "COMMAND_BLOCK_MINECART"
+    - "BARRIER"
+    - "STRUCTURE_BLOCK"
+    - "JIGSAW"
+    - "DEBUG_STICK"
+
+# ── Per-world configuration ──────────────────────────────────────────────────
+# Override anti-cheat behavior per world. Use "*" as default for unconfigured worlds.
+# worlds:
+#   lobby:
+#     enabled: false
+#   pvp_arena:
+#     policy-profile: strict
+#   "*":
+#     policy-profile: default
+worlds: {}
+
+# ── Webhook / Discord integration ────────────────────────────────────────────
+webhooks:
+  discord:
+    enabled: false
+    url: ""
+    min-risk: 6.0
+    max-per-minute: 10
+    embed-color: "#ff4444"
+
+actions:
+  mode: ALERT # ALERT | SETBACK | KICK
+  policy-profile: default # default | lightweight | strict | minigame | survival | custom-mechanics-safe | via-heavy
+  risk-thresholds:
+    alert: 3.0
+    setback: 6.0
+    kick: 10.5
+  cooldowns:
+    alert-ms: 2000
+    setback-ms: 5000
+    kick-ms: 25000
+
+performance:
+  profile: auto # auto | safe | balanced | aggressive
+  max-events-per-second: 900 # used when profile != auto
+  keepalive-sample-interval-ms: 220 # used when profile != auto
+
+ml:
+  enabled: true
+
+corroboration:
+  enabled: true
+  window-ms: 5000
+  min-distinct-categories: 2
+  min-events: 4
+
+security:
+  world-seed-guard:
+    enabled: true
+  anti-seed-cracker:
+    enabled: true
+    hashed-seed-spoof: true        # Spoof hashed seed in login/respawn packets (requires PacketEvents)
+    end-pillar-protection: true    # Convert End pillar bedrock caps to obsidian
+    structure-scramble: true       # Randomise dungeon floors and buried treasure holder blocks
+
+compatibility:
+  via-aware: true
+  packet-events-optimized: true
+  protocol-adaptive: true
+  legacy-combat: true
+  legacy-movement: true
+  modern-offhand: true
+  modern-inventory: true
+  latest-physics: true
+  latest-combat: true
+  attribute-aware-breaking: true
+
+  packet-latency-normalization: true
+  keepalive-coalescing: true
+  teleport-confirm-correlation: true
+  folia-region-safe-setback: true
+  folia-async-evidence: true
+  item-attribute-context: true
+  item-enchant-context: true
+  potion-context: true
+  legacy-timing-relax: true
+  modern-timing-strict: true
+  via-protocol-cache: true
+  via-translation-aware: true
+  packet-events-native-path: true
+  packet-events-decode-bypass: true
+  folia-region-thread-pinning: true
+  folia-scheduler-batching: true
+  command-attribute-tracing: true
+  nbt-context-scan: true
+  tool-durability-context: true
+  server-tick-drift-compensation: true
+  folia-region-io-fuse: true
+  folia-entity-snapshot-cache: true
+  via-version-window-smoothing: true
+  via-keepalive-rewrite-aware: true
+  packet-events-fast-reflection: true
+  packet-events-bundle-aware: true
+  deep-item-meta-heuristics: true
+  deep-item-attribute-signature: true
+  deep-item-command-lore: true
+  deep-item-unbreakable-tracing: true
+
+premium:
+  enabled: false
+  license-key: ""
+  webhook:
+    enabled: false
+    url: ""
